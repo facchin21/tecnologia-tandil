@@ -11,13 +11,13 @@ import "@fontsource-variable/onest";
   <div class="w-full lg:w-2/4 text-center lg:text-start">
     <h1
       class="text-5xl font-nunito font-black xl:text-6xl 2xl:text-7xl pb-2 md:pb-4
-    animate-slideTop delay-[400ms]"
+    animate-slideTop delay-[400ms] observed"
     >
       <span class="text-primary">Tecnologia</span> Tandil
     </h1>
     <p
       class="font-onest text-lg md:text-xl font-light text-clip xl:w-full
-    animate-slideTop delay-[600ms] 2xl:text-2xl"
+    animate-slideTop delay-[600ms] 2xl:text-2xl observed"
     >
       En Tecnologia Tandil estamos comprometidos en acercarte lo mejor del mundo
       digital.Somos un local ubicado en la hermosa ciudad de Tandil, donde
@@ -30,8 +30,25 @@ import "@fontsource-variable/onest";
     <img
       src="./store.png"
       loading="lazy"
-      class="w-3/4 xl:w-full animate-slideRight delay-[400ms]"
+      class="w-3/4 xl:w-full animate-slideRight delay-[400ms] observed"
       alt="Imagen del local de Tecnologia Tanil"
     />
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-visible");
+        } else {
+          entry.target.classList.remove("animate-visible");
+        }
+      });
+    });
+    document.querySelectorAll(".observed").forEach((el) => {
+      observer.observe(el);
+    });
+  });
+</script>

@@ -30,6 +30,7 @@ export default {
       slideIn: "slideIn 1s ease-out",
       slideTop: "slideTop 1s ease-out",
       slideRight: "slideRight 1s ease-out",
+      visible: "slideIn 1s ease-out",
     },
   },
   plugins: [],

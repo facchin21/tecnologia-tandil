@@ -1,6 +1,6 @@
 <div class="w-4/5 flex flex-col md:flex-row justify-center items-center mt-12">
   <!-- Container Imagen -->
-  <div class="flex justify-center items-center mt-8">
+  <div class="flex justify-center items-center mt-8 observed">
     <img
       src="./phone.png"
       loading="lazy"
@@ -14,17 +14,34 @@
       class="text-4xl lg:text-6xl 2xl:text-7xl font-nunito font-black
       flex flex-col justify-center items-start"
     >
-      <h1 class="animate-slideTop delay-[200ms]">Bienvenido a</h1>
-      <h2 class="text-primary animate-slideTop delay-[400ms]">Tecnologia</h2>
-      <h2 class="animate-slideTop delay-[600ms]">Tandil</h2>
+      <h1 class="animate-slideTop delay-[200ms] observed">Bienvenido a</h1>
+      <h2 class="text-primary animate-slideTop delay-[400ms] observed">Tecnologia</h2>
+      <h2 class="animate-slideTop delay-[600ms] observed">Tandil</h2>
     </div>
     <a
       href="/#about"
       class="bg-primary rounded-lg py-2.5 px-3 text-xl md:text-2xl
       font-black text-white font-nunito mt-3 md:mt-6 transition-all duration-300
-      hover:bg-primary/70 animate-slideTop delay-[800ms]"
+      hover:bg-primary/70 animate-slideTop delay-[800ms] observed"
     >
       Conócenos
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-visible");
+        } else {
+          entry.target.classList.remove("animate-visible");
+        }
+      });
+    });
+    document.querySelectorAll(".observed").forEach((el) => {
+      observer.observe(el);
+    });
+  });
+</script>
