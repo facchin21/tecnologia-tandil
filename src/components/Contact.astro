@@ -1,6 +1,55 @@
 ---
-
+import Instagram from "./icons/Instagram.astro";
+import Youtube from "./icons/Youtube.astro";
 ---
-<footer>
-    
+
+<footer
+  class="bg-white flex flex-col items-center justify-center
+ lg:justify-between lg:items-stretch px-12 lg:px-64 py-12"
+>
+  <!-- Contacto -->
+  <div
+    class="flex flex-col justify-start items-center lg:items-start
+    lg:flex-row lg:justify-between text-center gap-y-6"
+  >
+    <div
+      class="flex flex-col justify-center items-center lg:justify-start lg:items-start"
+    >
+      <h2 class="font-bold mb-4">Donde nos podes encontrar</h2>
+      <p>📍 Rodriguez 3500 - Tandil</p>
+      <p>📞 +54 (249) 123-4567</p>
+      <p>📧 contacto@tecnologiatandil.com</p>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <h2 class="font-bold mb-4">Horario de atención</h2>
+      <p>Lunes a sábado: 9:00 AM - 8:00 PM</p>
+    </div>
+    <div>
+      <h2 class="font-bold mb-4">Nuestras Redes</h2>
+      <div class="flex flex-row justify-center items-center gap-x-4">
+        <Instagram
+          class="size-6 text-black transition-all duration-300 hover:scale-105 cursor-pointer"
+        />
+        <Youtube
+          class="size-6 text-black transition-all duration-300 hover:scale-105 cursor-pointer"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- Footer para el developer -->
+  <div class="mx-auto mt-8 w-full text-center">
+    <div class="flex">
+      <div class="w-full h-0.5 bg-detail"></div>
+      <div class="w-28 h-0.5 bg-white"></div>
+      <div class="w-full h-0.5 bg-detail"></div>
+    </div>
+    <a
+      href="https://www.linkedin.com/in/ferminfacchin/"
+      class="text-detail transition-all duration-300
+       hover:text-gray-500 mt-3 inline-block"
+      target="_blank"
+    >
+      ©Fermin Facchin Quiroga
+    </a>
+  </div>
 </footer>
