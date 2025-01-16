@@ -1,4 +1,7 @@
 ---
+import Left from "./icons/Left.astro";
+import Right from "./icons/Right.astro";
+
 const PRODUCTS = [
   {
     title: "Celulares",
@@ -21,46 +24,139 @@ const PRODUCTS = [
      productos diseñados para ti.`,
     image: "./headset.png",
   },
-  // {
-  //   title: "Lamparas",
-  //   description: `Transforma tu espacio con nuestras lámparas modernas y funcionales. 
-  //   Desde luces suaves hasta diseños futuristas, encuentra la iluminación perfecta 
-  //   para cada rincón de tu hogar o oficina.`,
-  //   image: "./lampara.png",
-  // },
-  // {
-  //   title: "Accesorios para Pc",
-  //   description: `Eleva tu experiencia en el computador con nuestros accesorios para PC. 
-  //   Descubre teclados, mouses, audífonos y más, todos diseñados para mejorar tu 
-  //   productividad y comodidad mientras trabajas o juegas.`,
-  //   image: "./mouse.png",
-  // },
+  {
+    title: "Lamparas",
+    description: `Transforma tu espacio con nuestras lámparas modernas y funcionales.
+    Desde luces suaves hasta diseños futuristas, encuentra la iluminación perfecta
+     para cada rincón de tu hogar o oficina.`,
+    image: "./lampara.png",
+  },
+  {
+    title: "Accesorios para Pc",
+    description: `Eleva tu experiencia en el computador con nuestros accesorios para PC.
+     Descubre teclados, mouses, audífonos y más, todos diseñados para mejorar tu
+     productividad y comodidad mientras trabajas o juegas.`,
+    image: "./mouse.png",
+  },
 ];
 ---
 
 <div
-  id="products"
-  class="bg-[url('/Background.png')] bg-cover bg-center min-h-96 pt-32 pb-12 w-full
-flex justify-center items-center gap-x-24 lg:px-64"
+  class="bg-[url('/Background.png')] bg-cover bg-center min-h-96 pt-32 pb-12 w-full overflow-hidden"
 >
-  {
-    PRODUCTS.map((product) => (
-      <article
-        class="bg-white w-80 h-80 py-4 px-4 rounded-lg shadow-lg
-      shadow-primary/10 relative transition-all duration-300 hover:scale-105"
-      >
-        <img
-          src={product.image}
-          loading="lazy"
-          class="absolute -top-24 left-1/2 transform -translate-x-1/2 p
-          ointer-events-none max-w-36"
-          alt={`Imagen del producto de ${product.title}`}
-        />
-        <h2 class="text-primary font-bold text-xl text-center pt-12 pb-2">
-          {product.title}
-        </h2>
-        <p class="text-center text-pretty">{product.description}</p>
-      </article>
-    ))
-  }
+  <div
+    id="products"
+    class="flex justify-start items-center gap-x-4 lg:px-24
+    transition-transform duration-300"
+  >
+    {
+      PRODUCTS.map((product) => (
+        <article
+          class="bg-white w-80 h-80 py-4 px-4 rounded-lg 
+        shadow-lg shadow-primary/10 relative transition-transform 
+        duration-300 transform product flex-shrink-0 hover:scale-105"
+        >
+          <img
+            src={product.image || "/placeholder.svg"}
+            loading="lazy"
+            class="absolute -top-24 left-1/2 transform -translate-x-1/2 pointer-events-none max-w-36"
+            alt={`Imagen del producto de ${product.title}`}
+          />
+          <h2 class="text-primary font-bold text-xl text-center pt-12 pb-2">
+            {product.title}
+          </h2>
+          <p class="text-center text-pretty">{product.description}</p>
+        </article>
+      ))
+    }
+  </div>
+  <div class="flex w-full items-center justify-between px-12 lg:px-64 pt-8">
+    <button
+      id="buttonLeft"
+      class="bg-white text-primary rounded-full p-2 transition-all duration-300 hover:bg-white/70 hover:text-primary/70"
+    >
+      <Left />
+    </button>
+    <button
+      id="buttonRight"
+      class="bg-white text-primary rounded-full p-2 transition-all duration-300 hover:bg-white/70 hover:text-primary/70"
+    >
+      <Right />
+    </button>
+  </div>
 </div>
+
+<script>
+  let currentIndex = 0;
+  const visibleProducts = 3;
+  let productWidth = 0;
+
+  const products = document.querySelectorAll<HTMLElement>(".product");
+  const buttonLeft = document.getElementById("buttonLeft");
+  const buttonRight = document.getElementById("buttonRight");
+  const productContainer = document.getElementById("products");
+
+  if (!productContainer || !buttonLeft || !buttonRight) {
+    console.error("No se encontraron elementos necesarios del carrusel.");
+  }
+
+  const totalProducts = products.length;
+
+  const calculateProductWidth = () => {
+    if (products.length > 0) {
+      const firstProduct = products[0];
+      const styles = window.getComputedStyle(firstProduct);
+      productWidth =
+        firstProduct.offsetWidth +
+        parseInt(styles.marginLeft || "0") +
+        parseInt(styles.marginRight || "0");
+    }
+  };
+
+  const adjustContainerWidth = () => {
+    if (productContainer) {
+      const containerWidth = productWidth * totalProducts;
+      productContainer.style.width = `${containerWidth}px`;
+    }
+  };
+
+  const updateCarousel = () => {
+    const maxIndex = Math.max(0, totalProducts - visibleProducts);
+    currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+    const offset = currentIndex * productWidth;
+
+    if (productContainer) {
+      productContainer.style.transform = `translateX(-${offset}px)`;
+    }
+  };
+
+  const updateButtonVisibility = () => {
+    if (buttonLeft && buttonRight) {
+      buttonLeft.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+      buttonRight.style.visibility =
+        currentIndex >= totalProducts - visibleProducts ? "hidden" : "visible";
+    }
+  };
+
+  const initCarousel = () => {
+    calculateProductWidth();
+    adjustContainerWidth();
+    updateCarousel();
+    updateButtonVisibility();
+  };
+
+  window.addEventListener("load", initCarousel);
+  window.addEventListener("resize", initCarousel);
+
+  buttonLeft?.addEventListener("click", () => {
+    currentIndex = Math.max(0, currentIndex - 1);
+    updateCarousel();
+    updateButtonVisibility();
+  });
+
+  buttonRight?.addEventListener("click", () => {
+    currentIndex = Math.min(totalProducts - visibleProducts, currentIndex + 1);
+    updateCarousel();
+    updateButtonVisibility();
+  });
+</script>
