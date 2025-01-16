@@ -23,14 +23,19 @@ const navItems = [
 >
   <!-- Logo -->
   <div>
-    <img src="./Logo.png" alt="Imagen del logo de Tecnologia Tandil" 
-    loading="lazy"/>
+    <img
+      src="./Logo.png"
+      alt="Imagen del logo de Tecnologia Tandil"
+      class="transition-all duration-300 hover:scale-105"
+      loading="lazy"
+    />
   </div>
   <nav class="flex justify-center items-center">
     {
       navItems.map((link) => (
         <a
-          class="relative block px-2 py-2 transition hover:text-primary"
+          class="relative block px-2 py-2 transition-all duration-300
+           hover:text-primary hover:-translate-y-1"
           aria-label={link.label}
           href={link.url}
         >
@@ -42,7 +47,7 @@ const navItems = [
   <a
     href="/#contact"
     class="bg-primary text-white py-2 px-4 rounded-full
-    transition-all duration-300 hover:bg-primary/70"
+    transition-all duration-300 hover:bg-primary/70 hover:-translate-y-1"
   >
     Contacto</a
   >
