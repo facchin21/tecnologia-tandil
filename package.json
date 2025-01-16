@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "Landing-Tecnlogia",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.1.7"
+    "@astrojs/tailwind": "^5.1.4",
+    "@fontsource-variable/nunito": "^5.1.1",
+    "@fontsource-variable/onest": "^5.1.1",
+    "astro": "^5.1.7",
+    "tailwindcss": "^3.4.17"
   }
 }

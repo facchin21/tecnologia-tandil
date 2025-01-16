@@ -1,0 +1,48 @@
+---
+const navItems = [
+  {
+    title: "Inicio",
+    label: "inicio",
+    url: "/#top",
+  },
+  {
+    title: "Sobre Nosotros",
+    label: "Sobre Nostros",
+    url: "/#about",
+  },
+  {
+    title: "Productos",
+    label: "Productos",
+    url: "/#products",
+  },
+];
+---
+
+<header
+  class="w-full flex flex-col md:flex-row justify-between items-center pt-4 px-12 xl:px-64"
+>
+  <!-- Logo -->
+  <div>
+    <img src="./Logo.png" alt="Imagen del logo de Tecnologia Tandil" />
+  </div>
+  <nav class="flex justify-center items-center">
+    {
+      navItems.map((link) => (
+        <a
+          class="relative block px-2 py-2 transition hover:text-primary"
+          aria-label={link.label}
+          href={link.url}
+        >
+          {link.title}
+        </a>
+      ))
+    }
+  </nav>
+  <a
+    href="/#contact"
+    class="bg-primary text-white py-2 px-4 rounded-full
+    transition-all duration-300 hover:bg-primary/70"
+  >
+    Contacto</a
+  >
+</header>
