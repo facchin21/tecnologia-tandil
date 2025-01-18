@@ -1,41 +1,28 @@
 ---
-import Left from "./icons/Left.astro";
-import Right from "./icons/Right.astro";
-
 const PRODUCTS = [
   {
     title: "Celulares",
-    description: `Descubre los modelos más recientes con tecnología de punta. Pantallas de
-      alta resolución, cámaras increíbles y rendimiento que se adapta a tu día a
-      día. ¡Encuentra el smartphone perfecto para ti!`,
+    description: `Descubre los modelos más recientes con tecnología de punta. Pantallas de alta resolución, cámaras increíbles y rendimiento que se adapta a tu día a día. ¡Encuentra el smartphone perfecto para ti!`,
     image: "./phone-product.png",
   },
   {
     title: "Fundas",
-    description: `Dale personalidad a tu celular con nuestras fundas. 
-    Diseños únicos y modernos que combinan estilo y resistencia para 
-    mantener tu dispositivo seguro.`,
+    description: `Dale personalidad a tu celular con nuestras fundas. Diseños únicos y modernos que combinan estilo y resistencia para mantener tu dispositivo seguro.`,
     image: "./case.png",
   },
   {
     title: "Accesorios",
-    description: `Explora nuestros accesorios imprescindibles: auriculares,
-     cables, soportes y más. Mejora tu experiencia tecnológica con 
-     productos diseñados para ti.`,
+    description: `Explora nuestros accesorios imprescindibles: auriculares, cables, soportes y más. Mejora tu experiencia tecnológica con productos diseñados para ti.`,
     image: "./headset.png",
   },
   {
     title: "Lamparas",
-    description: `Transforma tu espacio con nuestras lámparas modernas y funcionales.
-    Desde luces suaves hasta diseños futuristas, encuentra la iluminación perfecta
-     para cada rincón de tu hogar o oficina.`,
+    description: `Transforma tu espacio con nuestras lámparas modernas y funcionales. Desde luces suaves hasta diseños futuristas, encuentra la iluminación perfecta para cada rincón de tu hogar o oficina.`,
     image: "./lampara.png",
   },
   {
     title: "Accesorios para Pc",
-    description: `Eleva tu experiencia en el computador con nuestros accesorios para PC.
-     Descubre teclados, mouses, audífonos y más, todos diseñados para mejorar tu
-     productividad y comodidad mientras trabajas o juegas.`,
+    description: `Eleva tu experiencia en el computador con nuestros accesorios para PC. Descubre teclados, mouses, audífonos y más, todos diseñados para mejorar tu productividad y comodidad mientras trabajas o juegas.`,
     image: "./mouse.png",
   },
 ];
@@ -44,119 +31,73 @@ const PRODUCTS = [
 <div
   class="bg-[url('/Background.png')] bg-cover bg-center min-h-96 pt-32 pb-12 w-full overflow-hidden"
 >
-  <div
-    id="products"
-    class="flex justify-start items-center gap-x-4 lg:px-24
-    transition-transform duration-300"
-  >
-    {
-      PRODUCTS.map((product) => (
-        <article
-          class="bg-white w-80 h-80 py-4 px-4 rounded-lg 
+  <div class="overflow-hidden relative">
+    <div id="products" class="flex gap-x-12 animate-marquee my-32 px-20">
+      <!-- Productos originales -->
+      {
+        PRODUCTS.map((product) => (
+          <article
+            class="bg-white w-80 h-80 py-4 px-4 rounded-lg 
         shadow-lg shadow-primary/10 relative transition-transform 
         duration-300 transform product flex-shrink-0 hover:scale-105"
-        >
-          <img
-            src={product.image || "/placeholder.svg"}
-            loading="lazy"
-            class="absolute -top-24 left-1/2 transform -translate-x-1/2 pointer-events-none max-w-36"
-            alt={`Imagen del producto de ${product.title}`}
-          />
-          <h2 class="text-primary font-bold text-xl text-center pt-12 pb-2">
-            {product.title}
-          </h2>
-          <p class="text-center text-pretty">{product.description}</p>
-        </article>
-      ))
-    }
-  </div>
-  <div class="flex w-full items-center justify-between px-12 lg:px-64 pt-8">
-    <button
-      id="buttonLeft"
-      class="bg-white text-primary rounded-full p-2 transition-all duration-300 hover:bg-white/70 hover:text-primary/70"
-    >
-      <Left />
-    </button>
-    <button
-      id="buttonRight"
-      class="bg-white text-primary rounded-full p-2 transition-all duration-300 hover:bg-white/70 hover:text-primary/70"
-    >
-      <Right />
-    </button>
+          >
+            <img
+              src={product.image || "/placeholder.svg"}
+              loading="lazy"
+              class="absolute -top-24 left-1/2 transform -translate-x-1/2 pointer-events-none max-w-36"
+              alt={`Imagen del producto de ${product.title}`}
+            />
+            <h2 class="text-primary font-bold text-xl text-center pt-12 pb-2">
+              {product.title}
+            </h2>
+            <p class="text-center text-pretty">{product.description}</p>
+          </article>
+        ))
+      }
+      <!-- Duplicar los productos para la animación continua -->
+      {
+        PRODUCTS.map((product) => (
+          <article
+            class="bg-white w-80 h-80 py-4 px-4 rounded-lg 
+        shadow-lg shadow-primary/10 relative transition-transform 
+        duration-300 transform product flex-shrink-0 hover:scale-105"
+          >
+            <img
+              src={product.image || "/placeholder.svg"}
+              loading="lazy"
+              class="absolute -top-24 left-1/2 transform -translate-x-1/2 pointer-events-none max-w-36"
+              alt={`Imagen del producto de ${product.title}`}
+            />
+            <h2 class="text-primary font-bold text-xl text-center pt-12 pb-2">
+              {product.title}
+            </h2>
+            <p class="text-center text-pretty">{product.description}</p>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </div>
 
-<script>
-  let currentIndex = 0;
-  const visibleProducts = 3;
-  let productWidth = 0;
-
-  const products = document.querySelectorAll<HTMLElement>(".product");
-  const buttonLeft = document.getElementById("buttonLeft");
-  const buttonRight = document.getElementById("buttonRight");
-  const productContainer = document.getElementById("products");
-
-  if (!productContainer || !buttonLeft || !buttonRight) {
-    console.error("No se encontraron elementos necesarios del carrusel.");
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    33% {
+      transform: translateX(-33.33%);
+    }
+    66% {
+      transform: translateX(-66.66%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
-
-  const totalProducts = products.length;
-
-  const calculateProductWidth = () => {
-    if (products.length > 0) {
-      const firstProduct = products[0];
-      const styles = window.getComputedStyle(firstProduct);
-      productWidth =
-        firstProduct.offsetWidth +
-        parseInt(styles.marginLeft || "0") +
-        parseInt(styles.marginRight || "0");
-    }
-  };
-
-  const adjustContainerWidth = () => {
-    if (productContainer) {
-      const containerWidth = productWidth * totalProducts;
-      productContainer.style.width = `${containerWidth}px`;
-    }
-  };
-
-  const updateCarousel = () => {
-    const maxIndex = Math.max(0, totalProducts - visibleProducts);
-    currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
-    const offset = currentIndex * productWidth;
-
-    if (productContainer) {
-      productContainer.style.transform = `translateX(-${offset}px)`;
-    }
-  };
-
-  const updateButtonVisibility = () => {
-    if (buttonLeft && buttonRight) {
-      buttonLeft.style.visibility = currentIndex === 0 ? "hidden" : "visible";
-      buttonRight.style.visibility =
-        currentIndex >= totalProducts - visibleProducts ? "hidden" : "visible";
-    }
-  };
-
-  const initCarousel = () => {
-    calculateProductWidth();
-    adjustContainerWidth();
-    updateCarousel();
-    updateButtonVisibility();
-  };
-
-  window.addEventListener("load", initCarousel);
-  window.addEventListener("resize", initCarousel);
-
-  buttonLeft?.addEventListener("click", () => {
-    currentIndex = Math.max(0, currentIndex - 1);
-    updateCarousel();
-    updateButtonVisibility();
-  });
-
-  buttonRight?.addEventListener("click", () => {
-    currentIndex = Math.min(totalProducts - visibleProducts, currentIndex + 1);
-    updateCarousel();
-    updateButtonVisibility();
-  });
-</script>
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  #products:hover {
+    animation-play-state: paused;
+  }
+</style>
